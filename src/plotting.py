@@ -119,3 +119,8 @@ def plotScatterMatrix(data, columns=[None, None], hue=None):
     start = columns[0]
     end = columns[1]
     sns.pairplot(data.ix[start:end], hue=hue)
+
+
+def plotLine(data):
+    sns.set(style="whitegrid")
+    sns.lineplot(data=data, palette="tab10", linewidth=2.5)

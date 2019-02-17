@@ -104,3 +104,18 @@ def plotScatterWithColorBar(x, y, data, color, color_title, xlim=None, ylim=None
 
     if save:
         plt.savefig(path, format='png')
+
+
+def plotScatterMatrix(data, columns=[None, None], hue=None):
+    """
+
+    :param data:
+    :param columns:
+    :param hue:
+    :return:
+    """
+
+    sns.set(style="ticks")
+    start = columns[0]
+    end = columns[1]
+    sns.pairplot(data.ix[start:end], hue=hue)

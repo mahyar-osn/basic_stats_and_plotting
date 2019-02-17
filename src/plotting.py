@@ -63,3 +63,44 @@ def plotSimpleScatter(x, y, data, xlim=None, ylim=None, save=False, path=None):
 
     if save:
         plt.savefig(path, format='png')
+
+
+def plotScatterWithColorBar(x, y, data, color, color_title, xlim=None, ylim=None, save=False, path=None):
+    """
+
+    :param x: x-variable
+    :param y: y-variable
+    :param data: Data as Pandas DF
+    :param color: Data column to be used for color plotting
+    :param color_title: Title of the color bar
+    :param xlim: X-axis range
+    :param ylin: Y-axis range
+    :param save: Boolean for saving the plot
+    :param path: Path to save the plot
+    :return:
+    """
+
+    sns.set(color_codes=True)
+    sns.set(font_scale=2.5)
+    plt.figure(figsize=(11, 10))
+
+    if xlim is not None:
+        plt.xlim(xmin=xlim[0])
+        plt.xlim(xmax=xlim[1])
+    if ylim is not None:
+        plt.xlim(xmin=ylim[0])
+        plt.xlim(xmax=ylim[1])
+
+    points = plt.scatter(data[x], data[y],
+                         c=data[color], s=250, cmap="Blues")
+
+    cbar_title = color_title
+    cb = plt.colorbar(points)
+    cb.set_label(cbar_title)
+    g = sns.regplot(x=x, y=y, data=data, scatter=False)
+
+    g.set(xlim=(xlim[0], xlim[1]))
+    plt.show()
+
+    if save:
+        plt.savefig(path, format='png')

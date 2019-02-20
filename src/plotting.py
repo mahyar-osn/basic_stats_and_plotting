@@ -124,3 +124,17 @@ def plotScatterMatrix(data, columns=[None, None], hue=None):
 def plotLine(data):
     sns.set(style="whitegrid")
     sns.lineplot(data=data, palette="tab10", linewidth=2.5)
+
+
+def plotHist(x, save=False, path=None):
+    """
+
+    :param x:
+    :param save:
+    :param path:
+    :return:
+    """
+
+    sns.distplot(x)
+    if save:
+        plt.savefig(path, format='pdf')

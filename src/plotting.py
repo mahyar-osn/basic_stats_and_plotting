@@ -120,6 +120,39 @@ def plotScatterMatrix(data, columns=[None, None], hue=None):
     sns.pairplot(data.ix[start:end], hue=hue)
 
 
+def plotScatterWithVaryingSizeAndHue(x, y, data, hue=None, size=None, sizes=(40,400), alpha=.5,
+                                     palette="muted", height=6, xlim=None, ylim=None, save=False,
+                                     path=None):
+    """
+
+    :param x:
+    :param y:
+    :param data:
+    :param hue:
+    :param size:
+    :param sizes:
+    :param alpha:
+    :param palette:
+    :param height:
+    :return:
+    """
+    sns.set(color_codes=True)
+    sns.set(font_scale=2.5)
+
+    if xlim is not None:
+        plt.xlim(xmin=xlim[0])
+        plt.xlim(xmax=xlim[1])
+    if ylim is not None:
+        plt.xlim(xmin=ylim[0])
+        plt.xlim(xmax=ylim[1])
+
+    sns.relplot(x=x, y=y, hue=hue, size=size, sizes=sizes, alpha=alpha, palette=palette,
+                height=height, data=data)
+
+    if save:
+        plt.savefig(path, format='png')
+
+
 def plotLine(data):
     sns.set(style="whitegrid")
     sns.lineplot(data=data, palette="tab10", linewidth=2.5)

@@ -1,6 +1,5 @@
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
-import os
 
 import numpy as np
 np.warnings.filterwarnings('ignore')
@@ -137,4 +136,4 @@ def plotHist(x, save=False, path=None):
 
     sns.distplot(x)
     if save:
-        plt.savefig(path, format='pdf')
+        plt.savefig(path, format='png')

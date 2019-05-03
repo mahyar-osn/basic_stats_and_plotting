@@ -44,6 +44,9 @@ class CSV:
 
 class Plotting:
 
+    def __init__(self):
+        pass
+
     @staticmethod
     def plotSimpleScatter(x, y, data, xlim=None, ylim=None, save=False, path=None):
         """
@@ -157,7 +160,7 @@ class Plotting:
             plt.xlim(xmax=ylim[1])
 
         sns.relplot(x=x, y=y, hue=hue, size=size, sizes=sizes, alpha=alpha, palette=palette, height=height, data=data)
-
+        plt.show(0)
         if save:
             plt.savefig(path, format='png')
 
@@ -197,16 +200,6 @@ class Plotting:
 
         sns.heatmap(corr, mask=mask, cmap=cmap, vmax=.3, center=0, square=True, linewidths=.5, cbar_kws={"shrink": .5})
 
-    # @staticmethod
-    # def plotKernelDensityEstimate():
-    #     """
-    #
-    #     :return:
-    #     """
-    #
-    #     sns.set()
-    #     sns.jointplot(x1, x2, kind="kde", height=7, space=0)
-
     @staticmethod
     def plotHeatMap(x, y, z, data, save=False, path=None):
         """
@@ -224,6 +217,79 @@ class Plotting:
         df = data.pivot(x, y, z)
         f, ax = plt.subplots(figsize=(9, 6))
         sns.heatmap(df, annot=True, linewidths=.5, ax=ax)
+
+        if save:
+            plt.savefig(path, format='png')
+
+    @staticmethod
+    def plotViolin(x, y, hue, data, palette='muted', save=False, path=None):
+
+        sns.set()
+        f, ax = plt.subplots(figsize=(9, 6))
+        sns.violinplot(x=x, y=y, hue=hue, data=data, palette=palette)
+        plt.show(0)
+
+        if save:
+            plt.savefig(path, format='png')
+
+    @staticmethod
+    def plotBox(x, y, hue, data, palette, save=False, path=None):
+
+        sns.set()
+        f, ax = plt.subplots(figsize=(9, 6))
+
+        sns.boxplot(x=x, y=y, hue=hue, palette=palette, data=data)
+        plt.show(0)
+
+        if save:
+            plt.savefig(path, format='png')
+
+    @staticmethod
+    def plotStir(hue, data, palette, save=False, path=None):
+
+        sns.set()
+        f, ax = plt.subplots(figsize=(9, 6))
+
+        sns.despine(bottom=True, left=True)
+
+        x_melt, y_melt = "Region Name", "measurement"
+
+        data = pd.melt(data, x_melt, var_name=y_melt)
+
+        x, y = "value", "measurement"
+        # 1:
+        sns.stripplot(x=x, y=y, hue=hue,
+              data=data, dodge=True, jitter=True,
+              alpha=.25, zorder=1)
+
+        # 2:
+        sns.pointplot(x=x, y=y, hue=hue, data=data, dodge=.532, join=False, palette=palette,
+                      markers="d", scale=.75, ci=None)
+
+        handles, labels = ax.get_legend_handles_labels()
+        ax.legend(handles[3:], labels[3:], title="species", handletextpad=0, columnspacing=1, loc="lower right", ncol=3,
+                  frameon=True)
+
+        plt.show(0)
+
+        if save:
+            plt.savefig(path, format='png')
+
+    @staticmethod
+    def plotScatterWithCategorical(x, y, hue, hue_order, size, data, save=False, path=None):
+        sns.set()
+        f, ax = plt.subplots(figsize=(9, 6))
+
+        sns.despine(bottom=True, left=True)
+
+        sns.scatterplot(x=x, y=y,
+                        hue=hue, size=size,
+                        palette="ch:r=-.2,d=.3_r",
+                        hue_order=hue_order,
+                        sizes=(1, 1000), linewidth=0,
+                        data=data, ax=ax)
+
+        plt.show(0)
 
         if save:
             plt.savefig(path, format='png')
